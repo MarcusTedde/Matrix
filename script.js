@@ -82,7 +82,7 @@ function drawMatrixRain() {
 
 
   for (let i = 0; i < drops.length; i++) {
-    if (isQuoteRevealing && i == quoteRevealStart + quoteRevealProgress && quoteRevealProgress < currentQuote.length) {
+    if (isQuoteRevealing && i == quoteRevealStart + quoteRevealProgress) {
       ctx.fillStyle = "#33ff33";  // A brighter shade of green
       ctx.font = "bold 30px Courier New";
       ctx.fillText(
