@@ -28,18 +28,15 @@ let quoteRevealStart = Math.floor(columns / 3); // About 1/3 in, adjust as neede
 let timeSinceLastQuote = 0;
 let currentQuote = quotes[0];
 let quoteHoldTime = 0;
-let quoteY = Math.floor(canvas.height / 2) + 15;  // +15 to account for the font size change
-
-function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
+let quoteY = Math.floor(canvas.height / 2);
 
 function displayQuote() {
   const quote = quotes[currentQuoteIndex];
+  ctx.fillStyle = "rgba(0, 0, 0, 1)";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = "#33ff33";
-  ctx.font = "bold 30px Courier New";
+
+  ctx.fillStyle = "limegreen";
+  ctx.font = "20px Courier New";
   ctx.textAlign = "center";
   ctx.fillText(quote, canvas.width / 2, canvas.height / 2);
 
@@ -66,8 +63,6 @@ function drawMatrixRain() {
 
   for (let i = 0; i < drops.length; i++) {
     if (isQuoteRevealing && i == quoteRevealStart + quoteRevealProgress) {
-      ctx.fillStyle = "#33ff33";  // A brighter shade of green
-      ctx.font = "bold 30px Courier New";
       ctx.fillText(
         currentQuote[quoteRevealProgress],
         quoteX + quoteRevealProgress * 20,
@@ -108,5 +103,4 @@ function drawMatrixRain() {
   }
 }
 
-window.addEventListener('resize', resizeCanvas);
 setInterval(drawMatrixRain, 33);
