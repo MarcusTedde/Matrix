@@ -69,6 +69,7 @@ function displayQuote() {
 
 function drawMatrixRain() {
   if (resized) {
+    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
     ctx.fillRect(0, 0, canvas.width, canvas.height); // Clear entire canvas
     resized = false;
   }
@@ -82,20 +83,23 @@ function drawMatrixRain() {
 
 
   for (let i = 0; i < drops.length; i++) {
-    if (isQuoteRevealing && i == quoteRevealStart + quoteRevealProgress) {
+  const isWithinQuoteRevealRange = i >= quoteRevealStart && i < quoteRevealStart + currentQuote.length;
+  
+  if (isQuoteRevealing && isWithinQuoteRevealRange) {
+    let charIndex = i - quoteRevealStart;
+    if (charIndex <= quoteRevealProgress) {
       ctx.fillStyle = "#33ff33";  // A brighter shade of green
       ctx.font = "bold 30px Courier New";
-      ctx.fillText(
-        currentQuote[quoteRevealProgress],
-        quoteX + quoteRevealProgress * 20,
-        quoteY
-      );
-    } else {
-      const text = characters.charAt(
-        Math.floor(Math.random() * characters.length)
-      );
-      ctx.fillText(text, i * 20, drops[i] * 20);
+      ctx.fillText(currentQuote[charIndex], i * 20, quoteY);
+      continue;  // Skip rendering the random character for this column
     }
+  }
+
+  // Render random character if not rendering a quote character
+  ctx.fillStyle = "limegreen";
+  ctx.font = "20px Courier New";
+  const text = characters.charAt(Math.floor(Math.random() * characters.length));
+  ctx.fillText(text, i * 20, drops[i] * 20);
 
     if (drops[i] * 20 > canvas.height && Math.random() > 0.975) {
       drops[i] = 0;
