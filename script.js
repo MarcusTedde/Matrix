@@ -28,6 +28,7 @@ let timeSinceLastQuote = 0;
 let currentQuote = quotes[0];
 let quoteHoldTime = 0;
 let quoteY = Math.floor(canvas.height / 2) + 15;  // +15 to account for the font size change
+let resized = false;
 
 function resizeCanvas() {
   canvas.width = window.innerWidth;
@@ -42,6 +43,7 @@ function resizeCanvas() {
 
   // Update the y-coordinate of the quote to always be in the center
   quoteY = Math.floor(canvas.height / 2) + 15;
+  resized = true;
 }
 
 function displayQuote() {
@@ -66,6 +68,10 @@ function displayQuote() {
 //let framesSinceLastQuote = 0;
 
 function drawMatrixRain() {
+  if (resized) {
+    ctx.fillRect(0, 0, canvas.width, canvas.height); // Clear entire canvas
+    resized = false;
+  }
   ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = "limegreen";
@@ -76,7 +82,7 @@ function drawMatrixRain() {
 
 
   for (let i = 0; i < drops.length; i++) {
-    if (isQuoteRevealing && i == quoteRevealStart + quoteRevealProgress) {
+    if (isQuoteRevealing && i == quoteRevealStart + quoteRevealProgress && quoteRevealProgress < currentQuote.length) {
       ctx.fillStyle = "#33ff33";  // A brighter shade of green
       ctx.font = "bold 30px Courier New";
       ctx.fillText(
