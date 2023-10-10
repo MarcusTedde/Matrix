@@ -7,8 +7,7 @@ const quotes = [
 
 const canvas = document.createElement("canvas");
 document.body.appendChild(canvas);
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+resizeCanvas();
 
 const ctx = canvas.getContext("2d");
 
@@ -33,6 +32,16 @@ let quoteY = Math.floor(canvas.height / 2) + 15;  // +15 to account for the font
 function resizeCanvas() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
+
+  // Update columns and drops array based on new width
+  const newColumns = canvas.width / 20;
+  while(drops.length < newColumns) {
+      drops.push(0);
+  }
+  drops.length = newColumns;
+
+  // Update the y-coordinate of the quote to always be in the center
+  quoteY = Math.floor(canvas.height / 2) + 15;
 }
 
 function displayQuote() {
@@ -62,7 +71,9 @@ function drawMatrixRain() {
   ctx.fillStyle = "limegreen";
   ctx.font = "20px Courier New";
 
-  let quoteX = Math.floor((canvas.width - currentQuote.length * 20) / 2);
+ let quoteWidth = ctx.measureText(currentQuote).width;
+ let quoteX = (canvas.width - quoteWidth) / 2;
+
 
   for (let i = 0; i < drops.length; i++) {
     if (isQuoteRevealing && i == quoteRevealStart + quoteRevealProgress) {
