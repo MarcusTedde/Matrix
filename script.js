@@ -7,7 +7,8 @@ const quotes = [
 
 const canvas = document.createElement("canvas");
 document.body.appendChild(canvas);
-resizeCanvas();
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
 const ctx = canvas.getContext("2d");
 
@@ -28,22 +29,10 @@ let timeSinceLastQuote = 0;
 let currentQuote = quotes[0];
 let quoteHoldTime = 0;
 let quoteY = Math.floor(canvas.height / 2) + 15;  // +15 to account for the font size change
-let resized = false;
 
 function resizeCanvas() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-
-  // Update columns and drops array based on new width
-  const newColumns = canvas.width / 20;
-  while(drops.length < newColumns) {
-      drops.push(0);
-  }
-  drops.length = newColumns;
-
-  // Update the y-coordinate of the quote to always be in the center
-  quoteY = Math.floor(canvas.height / 2) + 15;
-  resized = true;
 }
 
 function displayQuote() {
@@ -68,38 +57,28 @@ function displayQuote() {
 //let framesSinceLastQuote = 0;
 
 function drawMatrixRain() {
-  if (resized) {
-    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height); // Clear entire canvas
-    resized = false;
-  }
   ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = "limegreen";
   ctx.font = "20px Courier New";
 
- let quoteWidth = ctx.measureText(currentQuote).width;
- let quoteX = (canvas.width - quoteWidth) / 2;
-
+  let quoteX = Math.floor((canvas.width - currentQuote.length * 20) / 2);
 
   for (let i = 0; i < drops.length; i++) {
-  const isWithinQuoteRevealRange = i >= quoteRevealStart && i < quoteRevealStart + currentQuote.length;
-  
-  if (isQuoteRevealing && isWithinQuoteRevealRange) {
-    let charIndex = i - quoteRevealStart;
-    if (charIndex <= quoteRevealProgress) {
+    if (isQuoteRevealing && i == quoteRevealStart + quoteRevealProgress) {
       ctx.fillStyle = "#33ff33";  // A brighter shade of green
       ctx.font = "bold 30px Courier New";
-      ctx.fillText(currentQuote[charIndex], i * 20, quoteY);
-      continue;  // Skip rendering the random character for this column
+      ctx.fillText(
+        currentQuote[quoteRevealProgress],
+        quoteX + quoteRevealProgress * 20,
+        quoteY
+      );
+    } else {
+      const text = characters.charAt(
+        Math.floor(Math.random() * characters.length)
+      );
+      ctx.fillText(text, i * 20, drops[i] * 20);
     }
-  }
-
-  // Render random character if not rendering a quote character
-  ctx.fillStyle = "limegreen";
-  ctx.font = "20px Courier New";
-  const text = characters.charAt(Math.floor(Math.random() * characters.length));
-  ctx.fillText(text, i * 20, drops[i] * 20);
 
     if (drops[i] * 20 > canvas.height && Math.random() > 0.975) {
       drops[i] = 0;
