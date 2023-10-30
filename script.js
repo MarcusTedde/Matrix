@@ -191,4 +191,4 @@ function drawMatrixRain() {
     }
   }
 }
-setInterval(drawMatrixRain, 53);
+setInterval(drawMatrixRain, 43);
