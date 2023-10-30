@@ -1,5 +1,4 @@
 const quotes = [
-  "Have you tried turning it off and on again",
   "Hello, IT. Have you tried turning it off and on again?",
   "Yes, I've tried turning it off and on again. \nNo, I don't know what a graphical user interface is. \nCan you just fix it?",
   "No, you're wrong. You're wrong. You're wrong.",
@@ -157,15 +156,12 @@ function drawMatrixRain() {
   ctx.fillStyle = "limegreen";
   ctx.font = "20px Courier New";
   ctx.textAlign = "center";
-  for (let i = 0; i < quoteLines.length; i++) {
-    ctx.fillText(quoteLines[i], canvas.width / 2, quoteY + i * 30);
-  }
 
   // Pan quote
   if (isQuoteRevealing) {
     if (quoteRevealProgress < quote.length) {
       quoteRevealProgress += 1;
-    } else if (quoteHoldTime < 200) {
+    } else if (quoteHoldTime < 800) {
       quoteHoldTime++;
     } else {
       quoteRevealProgress = 0;
@@ -174,9 +170,12 @@ function drawMatrixRain() {
       currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
       timeSinceLastQuote = 0;
     }
+      for (let i = 0; i < quoteLines.length; i++) {
+        ctx.fillText(quoteLines[i], canvas.width / 2, quoteY + i * 30);
+      }
   } else {
     timeSinceLastQuote++;
-    if (timeSinceLastQuote > 50) {
+    if (timeSinceLastQuote > 500) {
       // Roughly 15 seconds
       isQuoteRevealing = true;
     }
