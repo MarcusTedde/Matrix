@@ -2,13 +2,11 @@ const quotes = [
   "Hello, IT. Have you tried turning it off and on again?",
   "Yes, I've tried turning it off and on again. \nNo, I don't know what a graphical user interface is. \nCan you just fix it?",
   "No, you're wrong. You're wrong. You're wrong.",
-  // a list of IT related quotes
   "If debugging is the process of removing software bugs,\nthen programming must be the process of putting them in.",
   "There are two ways to write \nerror-free programs; only the third one works.",
   "The best thing about a boolean is \neven if you are wrong, \nyou are only off by a bit.",
   "A good programmer is someone who always looks \nboth ways before crossing a one-way street.",
   "Always code as if the guy who ends up maintaining \nyour code will be a violent psychopath \nwho knows where you live.",
-  // more nerd quotes
   "There are 10 types of people in the \nworld: those who understand binary, " +
     "and those who don't.",
   "Computers make very fast, very accurate mistakes.",
@@ -19,6 +17,18 @@ const quotes = [
   "I'm not anti-social; I'm just not user friendly",
   "My attitude isn't bad. It's in beta.",
   "PICNIC - Problem In Chair, Not In Computer",
+  "A CD. How quaint. We have these in museums.",
+  "People who smile while they are alone used to be called insane \nuntil we invented smartphones and social media.",
+  "I won’t be impressed with technology until I can download food.",
+  "Life is too short to remove USB safely.",
+  "Wi-Fi went down for five minutes, so I had to talk to my family. \nThey seem like nice people.",
+  "This band is pretty good!",
+  "Especially for some IT nerds!",
+  "Never let a computer know you're in a hurry.",
+  "Hardware: The parts of a computer system that can be kicked.",
+  "The problem with troubleshooting is that trouble shoots back.",
+  "Once a new technology rolls over you, if you're not part \nof the steamroller, you're part of the road.",
+  "Man is a slow, sloppy and brilliant thinker; \nthe machine is fast, accurate and stupid."  
 ];
 
 const canvas = document.createElement("canvas");
