@@ -171,7 +171,7 @@ function drawMatrixRain() {
   if (isQuoteRevealing) {
     if (quoteRevealProgress < quote.length) {
       quoteRevealProgress += 1;
-    } else if (quoteHoldTime < 800) {
+    } else if (quoteHoldTime < 400) {
       quoteHoldTime++;
     } else {
       quoteRevealProgress = 0;
@@ -185,7 +185,7 @@ function drawMatrixRain() {
       }
   } else {
     timeSinceLastQuote++;
-    if (timeSinceLastQuote > 500) {
+    if (timeSinceLastQuote > 400) {
       // Roughly 15 seconds
       isQuoteRevealing = true;
     }
