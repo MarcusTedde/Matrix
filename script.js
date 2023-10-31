@@ -45,8 +45,7 @@ window.addEventListener("resize", resizeCanvas);
 
 const ctx = canvas.getContext("2d");
 
-const characters =
-  "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:,./<>?'";
+const characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:,./<>?'あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん";
 const columns = canvas.width / 20; // width of each character
 const drops = [];
 
